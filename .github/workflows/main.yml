@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Replace with the branch you use for development
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout your repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Install dependencies (if your project uses a build process like npm or yarn)
+      - name: Install Dependencies
+        run: |
+          npm install
+
+      # Build the project (if required)
+      - name: Build Project
+        run: |
+          npm run build # Replace with your build command, if needed
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build # Replace with the directory containing your final HTML files
